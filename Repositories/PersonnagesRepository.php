@@ -33,7 +33,17 @@ class PersonnagesRepository
         $q->bindValue(':niveau', $perso->niveau(), PDO::PARAM_INT);
         $q->bindValue(':experience', $perso->experience(), PDO::PARAM_INT);
 
-        return $q->execute();
+        $result = $q->execute();
+
+        if(!$result) {
+          echo "<br>PDOStatement::errorInfo() dans la fonction add(Personnage) :<br><pre>";
+          $arr = $q->errorInfo();
+          print_r($arr);
+          echo "</pre>";
+        }
+
+        return $result;
+
     }
 
     //READs
@@ -71,7 +81,16 @@ class PersonnagesRepository
         $q->bindValue(':experience', $perso->experience(), PDO::PARAM_INT);
         $q->bindValue(':id', $perso->id(), PDO::PARAM_INT);
 
-        $q->execute();
+        $result = $q->execute();
+
+        if(!$result) {
+          echo "<br>PDOStatement::errorInfo() dans la fonction update(Personnage) :<br><pre>";
+          $arr = $q->errorInfo();
+          print_r($arr);
+          echo "</pre>";
+        }
+
+        return $result;
     }
 
     //DELETE
